@@ -2,9 +2,9 @@
   <el-container>
     <el-aside width="200px">
       <el-menu :default-active="activateIndex" router>
-        <el-menu-item index="calendar">
+        <el-menu-item index="fix-seq">
           <el-icon><icon-menu /></el-icon>
-          <span>Calendar</span>
+          <span>修复postgres序列</span>
         </el-menu-item>
         <el-menu-item index="table">
           <el-icon>

@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 const routes = [
-    { path: '', redirect: "calendar" },
-    { path: '/', redirect: "calendar" },
-    { path: '/index.html', redirect: "calendar" },
-    { path: '/dist/index.html', redirect: "calendar" },
+    { path: '', redirect: "fix-seq" },
+    { path: '/', redirect: "fix-seq" },
+    { path: '/index.html', redirect: "fix-seq" },
+    { path: '/dist/index.html', redirect: "fix-seq" },
     { path: '/table', component: () => import('@/components/Table.vue'), name: "table" },
-    { path: '/calendar', component: () => import('@/components/Calendar.vue'), name: "calendar" },
+    { path: '/fix-seq', component: () => import('@/components/FixSeq.vue'), name: "fix-seq" },
 ]
 
 // function definePage(page) {
