@@ -5,7 +5,7 @@ const routes = [
     { path: '/', redirect: "fix-seq" },
     { path: '/index.html', redirect: "fix-seq" },
     { path: '/dist/index.html', redirect: "fix-seq" },
-    { path: '/table', component: () => import('@/components/Table.vue'), name: "table" },
+    { path: '/base64', component: () => import('@/components/Base64.vue'), name: "base64" },
     { path: '/fix-seq', component: () => import('@/components/FixSeq.vue'), name: "fix-seq" },
 ]
 

@@ -6,11 +6,11 @@
           <el-icon><icon-menu /></el-icon>
           <span>修复postgres序列</span>
         </el-menu-item>
-        <el-menu-item index="table">
+        <el-menu-item index="base64">
           <el-icon>
             <setting />
           </el-icon>
-          <span>Table</span>
+          <span>base64文件下载</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -28,9 +28,7 @@ import {
 import { nextTick, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 const activateIndex = ref('')
-
 const route = useRoute()
-
 onMounted(() => {
   console.log(
     route.path
