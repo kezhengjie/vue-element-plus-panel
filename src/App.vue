@@ -30,10 +30,7 @@ import { useRoute } from 'vue-router';
 const activateIndex = ref('')
 const route = useRoute()
 onMounted(() => {
-  console.log(
-    route.path
-  )
-  activateIndex.value = route.path.slice(1)
+  activateIndex.value = localStorage.getItem('lastVisited') || 'fix-seq'
 })
 
 
