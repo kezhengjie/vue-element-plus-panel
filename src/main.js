@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { ElAside, ElButton, ElCalendar, ElContainer, ElHeader, ElIcon, ElInput, ElMenu, ElSubMenu, ElTable, ElText } from 'element-plus'
+import { ElAside, ElButton, ElCalendar, ElContainer, ElHeader, ElIcon, ElInput, ElMenu, ElSubMenu, ElSwitch, ElTable, ElText, ElUpload } from 'element-plus'
 import 'element-plus/dist/index.css'
 
 import App from './App.vue'
@@ -18,6 +18,8 @@ const elements = [
     ElTable,
     ElInput,
     ElText,
+    ElUpload,
+    ElSwitch,
 ]
 
 for (const el of elements) {

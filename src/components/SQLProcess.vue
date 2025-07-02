@@ -1,0 +1,107 @@
+<template>
+  <div v-for="(item, index) in switchList" :key="index">
+    <el-switch v-model="item.value"></el-switch><el-text style="margin-left:10px;">{{ item.name }}</el-text>
+  </div>
+
+  <el-upload style="margin-top: 20px;" :on-exceed="handleExceed" v-model:file-list="fileList"
+    action="javascript:void(0);" :auto-upload="false" ref="uploadRef" :limit="1">
+    <template #trigger>
+      <el-button type="primary">选择SQL文件</el-button>
+    </template>
+    <el-button :disabled="isFileUploaded()" @click="process" style="margin-left: 10px;position: fixed;"
+      type="success">开始处理</el-button>
+  </el-upload>
+
+</template>
+
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { ElMessage, genFileId } from 'element-plus'
+import type { UploadRawFile, UploadProps, UploadInstance, UploadUserFile } from 'element-plus'
+
+const fileList = ref<UploadUserFile[]>([]) // 用于存储上传的文件列表
+const uploadRef = ref<UploadInstance>()
+const isFileUploaded = () => {
+  return fileList.value.length === 0
+}
+
+const handleToDate = (content: string): string => {
+  content = content.replaceAll("to_date(", '')
+  content = content.replaceAll(",'yyyy-mm-dd hh24:mi:ss')", '')
+  return content
+}
+
+const handleWrongFrom = (content: string): string => {
+  return content.replaceAll(`"""from"""`, "from")
+}
+
+const keepOnlyInsert = (content: string): string => {
+  let firstInsertIndex = content.indexOf('INSERT INTO')
+  if (firstInsertIndex >= 0) {
+    return content.substring(firstInsertIndex)
+  } else {
+    return content
+  }
+}
+
+type Switch = {
+  name: string
+  value: boolean
+  handler: (content: string) => string
+}
+
+const switchList = ref<Switch[]>([
+  { name: "处理to_date", value: false, handler: handleToDate },
+  { name: `处理"""from"""`, value: false, handler: handleWrongFrom },
+  { name: `只保留插入语句`, value: false, handler: keepOnlyInsert },
+])
+
+const saveSwitchState = () => {
+  const arr = []
+  for (const item of switchList.value) {
+    arr.push(item.value)
+  }
+  localStorage.setItem('SQLProcessSwitchState', JSON.stringify(arr))
+}
+
+const loadSwitchState = () => {
+  const state = localStorage.getItem('SQLProcessSwitchState')
+  if (state) {
+    const arr = JSON.parse(state)
+    for (let i = 0; i < switchList.value.length; i++) {
+      switchList.value[i].value = arr[i] || false
+    }
+  }
+}
+
+loadSwitchState()
+
+const process = async () => {
+  saveSwitchState()
+  let content = await fileList.value[0]?.raw.text()
+  for (const item of switchList.value) {
+    if (item.value && item.handler) {
+      content = item.handler(content)
+    }
+  }
+  downloadFile(content, fileList.value[0].name || 'processed.sql')
+}
+
+const downloadFile = (content: string, fileName: string) => {
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' })
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = fileName
+  document.body.appendChild(link)
+  link.click()
+  ElMessage.success('文件下载成功！')
+  document.body.removeChild(link)
+}
+
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  uploadRef.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  uploadRef.value!.handleStart(file)
+}
+</script>

@@ -10,6 +10,10 @@
           <el-icon><icon-promotion /></el-icon>
           <span>base64文件下载</span>
         </el-menu-item>
+        <el-menu-item index="sql-process">
+          <el-icon><icon-promotion /></el-icon>
+          <span>SQL处理</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <el-main>
@@ -30,7 +34,7 @@ import { useRoute } from 'vue-router';
 const activateIndex = ref('')
 const route = useRoute()
 onMounted(() => {
-  activateIndex.value = localStorage.getItem('lastVisited') || 'fix-seq'
+  activateIndex.value = localStorage.getItem('lastVisited') || route.name
 })
 
 
