@@ -1,6 +1,6 @@
 <template>
   <div v-for="(item, index) in switchList" :key="index">
-    <el-switch v-model="item.value"></el-switch><el-text style="margin-left:10px;">{{ item.name }}</el-text>
+    <el-switch @change="saveSwitchState" v-model="item.value"></el-switch><el-text style="margin-left:10px;">{{ item.name }}</el-text>
   </div>
 
   <el-upload style="margin-top: 20px;" :on-exceed="handleExceed" v-model:file-list="fileList"
@@ -51,8 +51,8 @@ type Switch = {
 }
 
 const switchList = ref<Switch[]>([
-  { name: "处理to_date", value: false, handler: handleToDate },
-  { name: `处理"""from"""`, value: false, handler: handleWrongFrom },
+  { name: "处理to_date", value: true, handler: handleToDate },
+  { name: `处理"""from"""`, value: true, handler: handleWrongFrom },
   { name: `只保留插入语句`, value: false, handler: keepOnlyInsert },
 ])
 
@@ -77,7 +77,6 @@ const loadSwitchState = () => {
 loadSwitchState()
 
 const process = async () => {
-  saveSwitchState()
   let content = await fileList.value[0]?.raw.text()
   for (const item of switchList.value) {
     if (item.value && item.handler) {
@@ -91,7 +90,7 @@ const downloadFile = (content: string, fileName: string) => {
   const blob = new Blob([content], { type: 'text/plain;charset=utf-8' })
   const link = document.createElement('a')
   link.href = URL.createObjectURL(blob)
-  link.download = fileName
+  link.download = fileName.split('.').slice(0, -1).join('.') + '-processed.' + fileName.split('.').pop()
   document.body.appendChild(link)
   link.click()
   ElMessage.success('文件下载成功！')

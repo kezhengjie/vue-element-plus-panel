@@ -3,16 +3,16 @@
     <el-aside width="200px">
       <el-menu :default-active="activateIndex" router>
         <el-menu-item index="fix-seq">
-          <el-icon><icon-menu /></el-icon>
+          <el-icon><icon-tools /> </el-icon>
           <span>修复postgres序列</span>
         </el-menu-item>
         <el-menu-item index="base64">
-          <el-icon><icon-promotion /></el-icon>
+          <el-icon><icon-tools /></el-icon>
           <span>base64文件下载</span>
         </el-menu-item>
         <el-menu-item index="sql-process">
-          <el-icon><icon-promotion /></el-icon>
-          <span>SQL处理</span>
+          <el-icon><icon-tools /></el-icon>
+          <span>阿里云SQL处理</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -24,12 +24,9 @@
 
 <script setup>
 import {
-  Menu as IconMenu,
   Tools as IconTools,
-  Promotion as IconPromotion,
-  Setting,
 } from '@element-plus/icons-vue'
-import { nextTick, onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 const activateIndex = ref('')
 const route = useRoute()
