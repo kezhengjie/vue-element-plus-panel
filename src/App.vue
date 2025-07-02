@@ -7,9 +7,7 @@
           <span>修复postgres序列</span>
         </el-menu-item>
         <el-menu-item index="base64">
-          <el-icon>
-            <setting />
-          </el-icon>
+          <el-icon><icon-promotion /></el-icon>
           <span>base64文件下载</span>
         </el-menu-item>
       </el-menu>
@@ -23,6 +21,8 @@
 <script setup>
 import {
   Menu as IconMenu,
+  Tools as IconTools,
+  Promotion as IconPromotion,
   Setting,
 } from '@element-plus/icons-vue'
 import { nextTick, onMounted, ref, watch } from 'vue';
