@@ -1,6 +1,7 @@
 <template>
   <div v-for="(item, index) in switchList" :key="index">
-    <el-switch @change="saveSwitchState" v-model="item.value"></el-switch><el-text style="margin-left:10px;">{{ item.name }}</el-text>
+    <el-switch @change="saveSwitchState" v-model="item.value"></el-switch><el-text style="margin-left:10px;">{{
+      item.name }}</el-text>
   </div>
 
   <el-upload style="margin-top: 20px;" :on-exceed="handleExceed" v-model:file-list="fileList"
@@ -44,6 +45,16 @@ const keepOnlyInsert = (content: string): string => {
   }
 }
 
+const handlePgCustomWord = (content: string): string => {
+  let begin = content.indexOf('pg_ts_custom_word')
+  if (begin === -1) {
+    return content
+  }
+  begin = content.substring(0, begin).lastIndexOf('CREATE')
+  let end = content.substring(begin).indexOf(';')
+  return content.substring(0, begin) + content.substring(begin + end + 1)
+}
+
 type Switch = {
   name: string
   value: boolean
@@ -53,6 +64,7 @@ type Switch = {
 const switchList = ref<Switch[]>([
   { name: "处理to_date", value: true, handler: handleToDate },
   { name: `处理"""from"""`, value: true, handler: handleWrongFrom },
+  { name: `去除pg_ts_custom_word`, value: false, handler: handlePgCustomWord },
   { name: `只保留插入语句`, value: false, handler: keepOnlyInsert },
 ])
 
