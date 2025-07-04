@@ -12,7 +12,7 @@
 
     <div v-for="(item, index) in codeList" :key="index">
         <el-col :span="24"><el-text style=""> {{ item.name }} :</el-text></el-col>
-        <el-col style="min-width: 900px;" class="code-area" :span="24"><el-text> {{ item.code }} </el-text></el-col>
+        <el-col style="max-width: 900px;" class="code-area" :span="24"><el-text> {{ item.code }} </el-text></el-col>
         <el-col> <el-button @click="copyCommand" type="success">复制命令</el-button> </el-col>
     </div>
 
