@@ -113,14 +113,32 @@ const download = () => {
 
 const copyCommand = () => {
     const command = codeList.value.map(item => item.code).join('\n')
-    navigator.clipboard.writeText(command)
-        .then(() => {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(command)
+            .then(() => {
+                ElMessage.success('命令已复制到剪贴板！')
+            })
+            .catch(err => {
+                console.error('复制失败:', err)
+                ElMessage.error('复制命令失败，请手动复制')
+            })
+    } else {
+        const textarea = document.createElement('textarea')
+        textarea.value = command
+        textarea.style.position = 'fixed'
+        textarea.style.opacity = '0'
+        document.body.appendChild(textarea)
+        textarea.select()
+        try {
+            document.execCommand('copy')
             ElMessage.success('命令已复制到剪贴板！')
-        })
-        .catch(err => {
+        } catch (err) {
             console.error('复制失败:', err)
             ElMessage.error('复制命令失败，请手动复制')
-        })
+        } finally {
+            document.body.removeChild(textarea)
+        }
+    }
 }
 
 const getMimeType = (base64: string) => {
