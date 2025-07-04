@@ -51,7 +51,7 @@ import { ElMessage } from 'element-plus'
 const base64Content = ref('')
 const sourceFileName = ref(localStorage.getItem('Base64.sourceFileName') || 'file')
 const sourceFileNameRef = ref(null)
-const outputFileName = ref(localStorage.getItem('Base64.outputFileName'))
+const outputFileName = ref(localStorage.getItem('Base64.outputFileName') || '')
 const codeTemplateList = [
     // { name: '将文件转为base64编码', code: 'base64 -w0 {}' },
     { name: '压缩文件后转为base64编码', code: 'tar -cvzf {}.tar.gz {};base64 -w0 {}.tar.gz' }
