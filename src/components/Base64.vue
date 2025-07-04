@@ -16,7 +16,7 @@
         <el-col> <el-button @click="copyCommand" type="success">复制命令</el-button> </el-col>
     </div>
 
-    <el-row>
+    <el-row style="margin-top:20px">
         <el-col :span="24">
             <el-text style="font-size: 15px;">输出文件名：</el-text>
         </el-col>
