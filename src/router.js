@@ -8,12 +8,6 @@ const routes = [
     { path: '/sql-process', component: () => import('@/components/SQLProcess.vue'), name: "sql-process" },
 ]
 
-// function definePage(page) {
-//     routes.push({ path: '/' + page.toLowerCase(), component: () => import(`./components/${page}.vue`), name: page.toLowerCase() },)
-// }
-
-// definePage('Table')
-
 const router = createRouter({
     history: createMemoryHistory(),
     routes,
