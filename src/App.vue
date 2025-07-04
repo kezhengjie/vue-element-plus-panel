@@ -37,8 +37,21 @@ onMounted(() => {
 
 </script>
 
-<style scoped>
-.el-menu-item {
-  font-size: 15px;
+
+<style lang="scss">
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.el-container {
+  height: 100%;
+}
+
+.el-menu {
+  height: 100%;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+    <div style="margin: 10px 0" />
     <el-text style="font-size: 15px;">输出文件名：</el-text>
     <div style="margin: 10px 0" />
     <el-input v-model="filename" placeholder="请输入文件名（包含扩展名）" resize="none" style="max-width: 400px" />
