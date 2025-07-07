@@ -4,8 +4,8 @@
       item.name }}</el-text>
   </div>
 
-  <el-upload style="margin-top: 20px;" :on-exceed="handleExceed" v-model:file-list="fileList"
-    action="javascript:void(0);" :auto-upload="false" ref="uploadRef" :limit="1">
+  <el-upload accept=".sql" style="margin-top: 20px;" :on-exceed="handleExceed" v-model:file-list="fileList"
+    action="javascript:void(0);" :auto-upload="false" :on-change="onUploadChange" ref="uploadRef" :limit="1">
     <template #trigger>
       <el-button type="primary">选择SQL文件</el-button>
     </template>
@@ -24,6 +24,16 @@ const fileList = ref<UploadUserFile[]>([]) // 用于存储上传的文件列表
 const uploadRef = ref<UploadInstance>()
 const isFileUploaded = () => {
   return fileList.value.length === 0
+}
+
+const onUploadChange = (file: UploadRawFile): boolean => {
+  const fileType = file.name.split('.').pop()?.toLowerCase()
+  if (fileType !== 'sql') {
+    uploadRef.value!.clearFiles()
+    ElMessage.error('请上传SQL文件！')
+    return false
+  }
+  return true
 }
 
 const handleToDate = (content: string): string => {

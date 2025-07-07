@@ -13,7 +13,7 @@
     <div v-for="(item, index) in codeList" :key="index">
         <el-col :span="24"><el-text style=""> {{ item.name }} :</el-text></el-col>
         <el-col style="max-width: 900px;" class="code-area" :span="24"><el-text> {{ item.code }} </el-text></el-col>
-        <el-col> <el-button @click="copyCommand" type="success">复制命令</el-button> </el-col>
+        <el-col> <el-button :disabled="!(sourceFileName.length > 0)" @click="copyCommand" type="success">复制命令</el-button> </el-col>
     </div>
 
     <el-row style="margin-top:20px">
